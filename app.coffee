@@ -56,7 +56,6 @@ app.post '/login', (req, res) ->
     if err?
       res.redirect('/login.html')
     else
-      console.log "no error"
       req.session.sessionId = sessionId
       res.redirect('/')
 
