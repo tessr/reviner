@@ -26,9 +26,11 @@ $ ->
 
   $('#container').delegate '.revine-button', 'click', ->
     data =
-      videoUrl: $(@).data('videoUrl')
+      videoUrl: $(@).data('videourl')
       description: $(@).data('description')
-      thumbnailUrl: $(@).data('thumbnailUrl')
+      thumbnailUrl: $(@).data('thumbnailurl')
+      sessionId: sessionId
+    console.log data
     $.ajax(
       method: 'POST'
       url: '/revines'
