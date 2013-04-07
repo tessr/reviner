@@ -1,15 +1,44 @@
 sessionId = null
 userId = null
 
+class RevineView extends Backbone.View
+  events:
+    'click .revine-button': 'revine'
+  revine: ->
+    console.log "revining"
+    return
+    data = @model.toJSON()
+    data.sessionId = sessionId
+    data.userId = userId
+    $.ajax(
+      method: 'POST'
+      url: '/revines'
+      data: data
+    ).done (data) ->
+      console.log data
+
+  initialize: (options) ->
+    @template = options.template
+  render: ->
+    compiled = _.template @template, @model.toJSON()
+    @$el.html compiled
+    return @
+
 $ ->
+  post_template = $('#post-template').html()
+  revines = new Backbone.Collection()
+
+  revines.on 'reset', ->
+    views = []
+    revines.each (revine) ->
+      revine_view = new RevineView(model: revine, template: post_template)
+      views.push revine_view.render()
+    viewEls = _.pluck views, 'el'
+    $('#container').html viewEls
+
   render_topbar = ->
     topbar_template = $('#top-bar-template').html()
     $('#top').html topbar_template
-
-  render_posts = (posts) ->
-    post_template = _.template $('#post-template').html()
-    compiled = _.map(posts, post_template).join('')
-    $('#container').html compiled
 
   if sessionId
     # render timeline
@@ -29,18 +58,4 @@ $ ->
         sessionId = data.sessionId
         userId = data.userId
         render_topbar()
-        render_posts(data.feed.records)
-
-  $('#container').delegate '.revine-button', 'click', ->
-    data =
-      videoUrl: $(@).data('videourl')
-      description: $(@).data('description')
-      thumbnailUrl: $(@).data('thumbnailurl')
-      sessionId: sessionId
-      userId: userId
-    $.ajax(
-      method: 'POST'
-      url: '/revines'
-      data: data
-    ).done (data) ->
-      console.log data
+        revines.reset data.feed.records
