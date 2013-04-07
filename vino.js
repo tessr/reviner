@@ -73,6 +73,7 @@ Vino.prototype.login = function(callback) {
       body = JSON.parse(body);
       if (!body.success) {
         callback('login failure', body);
+        return;
       }
       that.sessionId = body.data.key;
       that.userId = body.data.userId;
