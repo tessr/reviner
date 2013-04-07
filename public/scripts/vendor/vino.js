@@ -1,3 +1,4 @@
+// https://github.com/tlack/vino
 var VINO_VERSION = "0.0.1";
 var VINO_DEFAULT_OPTS = {
 	baseUrl: 'https://api.vineapp.com/',
