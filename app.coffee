@@ -41,6 +41,7 @@ postSchema = new mongoose.Schema
   videoUrl: String
   foursquareVenueId: {}
   revines: [revineSchema]
+  timesRevined: Number
 Post = mongoose.model('Post', postSchema)
 
 # routes
@@ -78,6 +79,7 @@ app.post '/revines', (req, res) ->
     res.status(error: err, 500) if err?
     if doc?
       doc.revines.push(new Revine(userId: post.userId))
+      post.timesRevined++
     else
       post.revines = [new Revine(userId: post.userId)]
       doc = new Post(post)
@@ -94,11 +96,6 @@ app.get '/revines/top', (req, res) ->
   Revine.find().sort(timesRevined: -1).limit(20).exec (err, docs) ->
     res.send(error: err, 500) if err?
     res.send(docs)
-
-app.get '/top', (req, res) ->
-  Revine.find().sort(timesRevined: -1).limit(20).exec (err, docs) ->
-    res.send(error: err, 500) if err?
-    res.render 'top', {posts: docs}
 
 # listen
 app.listen app.get('port'), ->
