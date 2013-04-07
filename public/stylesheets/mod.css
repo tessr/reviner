@@ -106,3 +106,11 @@
   font-size: 18px;
   float: left;
 }
+
+.twitter-share {
+  opacity: 0.3;
+}
+
+.postToTwitter .twitter-share {
+  opacity: 1.0;
+}
