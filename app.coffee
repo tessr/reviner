@@ -62,15 +62,17 @@ app.post '/login', (req, res) ->
     username: req.param('username')
     password: req.param('password')
   client.login (err, sessionId, userId) ->
-    res.send(error: err, 500) if err?
-    req.session.sessionId = sessionId
-    res.redirect('/')
+    if err?
+      res.redirect('/login.html')
+    else
+      req.session.sessionId = sessionId
+      res.redirect('/')
 
 app.post '/revines', (req, res) ->
   post = req.body
   description = "RV: #{post.description}"
   client = new Vino(sessionId: req.session.sessionId)
-  client.revine(post.videoUrl, post.thumbnailUrl, description)
+  client.revine(post.videoUrl, post.thumbnailUrl, description, post.postToTwitter)
 
   Post.findOne {videoUrl: post.videoUrl}, (err, doc) ->
     res.status(error: err, 500) if err?
@@ -81,8 +83,6 @@ app.post '/revines', (req, res) ->
       doc = new Post(post)
     doc.save (err) ->
       res.send(error: err, 500) if err?
-      console.log('\n\n\n\n\n\n', doc, '\n\n\n\n\n\n')
-      console.log('\n\n\n\n\n\n', err, '\n\n\n\n\n\n')
       res.send(doc, 200)
 
 app.get '/revines', (req, res) ->

@@ -49,6 +49,7 @@
 
 .row.vine-container {
   border-bottom: solid 1px #ddd;
+  margin-bottom: 40px;
 }
 
 .metadata .author-profile-picture {
@@ -83,7 +84,7 @@
 }
 
 .twitter-share{
-  float: right;
+  float: left;
   margin-left: 5px;
 }
 
@@ -105,6 +106,22 @@
   box-shadow: 0 4px 0 rgb(0, 127, 91);
   font-size: 18px;
   float: left;
+}
+
+.button.revine-button:hover{
+  /*background-color: #1dc094;*/
+  background-color: #20d6a5;
+  border-color: #007f5b;
+  box-shadow: 0 4px 0 #007f5b;
+}
+
+.button.revine-button:active {
+  background-color: #009B76;
+  border-width: 3px 1px 1px 1px;
+  margin-top: 11px;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  margin-top: 0;
 }
 
 .twitter-share {
