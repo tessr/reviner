@@ -83,7 +83,7 @@ Vino.prototype.login = function(callback) {
 	);
 };
 
-Vino.prototype.revine = function(videoUrl, thumbnailUrl, description) {
+Vino.prototype.revine = function(videoUrl, thumbnailUrl, description, postToTwitter) {
 	if (!('sessionId' in this))
 		throw new Error('must be logged in');
   var bu = this.opts.baseUrl, that = this;
@@ -95,7 +95,7 @@ Vino.prototype.revine = function(videoUrl, thumbnailUrl, description) {
 				videoUrl: videoUrl,
 				thumbnailUrl: thumbnailUrl,
 				description: description,
-        postToTwitter: 1
+        postToTwitter: postToTwitter
 			},
       headers: {
 				'vine-session-id': this.sessionId,
