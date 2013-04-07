@@ -60,16 +60,34 @@
     };
 
     RevineView.prototype.revine = function() {
+      var _this = this;
       return $.ajax({
         method: 'POST',
         url: '/revines',
         data: this.model.toJSON()
+      }).done(function(data) {
+        var count;
+        if (_this.model.get("revines") != null) {
+          count = _this.model.get("revines").length;
+          _this.$el.find('.revines-length').html("" + (count + 1) + " RVs");
+        }
+        return $('.overlay').show('slow', function() {
+          return $('.overlay').delay(1500).hide('slow');
+        });
       });
     };
 
     RevineView.prototype.initialize = function(options) {
       this.model.set({
         postToTwitter: 0
+      });
+      if (!this.model.get("revines")) {
+        this.model.set({
+          revines: []
+        });
+      }
+      this.model.set({
+        created: new Date()
       });
       return this.template = options.template;
     };
