@@ -48,15 +48,14 @@
             <div class = 'action-buttons'>
               <div class = 'button revine-button'>
                 ReVine
+              <% if (revines.length) { %>
+                  (<%= revines.length %> RVs)
+              <% } %>
+
               </div>
               <div class = "twitter-share">
                 <img src = "/images/twitter-icon-color.png" />
               </div>
-              <% if (revines.length) { %>
-                <div class='revines-length'>
-                  <%= revines.length %> RVs
-                </div>
-              <% } %>
             </div>
           </div>
         </div>
