@@ -9,20 +9,17 @@
     <link rel='stylesheet' href='stylesheets/mod.css'>
   </head>
   <body>
-    <nav class = "top-bar">
-      <!-- <ul class = "left">
-        <li class = "has-dropdown">
-          <img src = "images/home.png" />
-        </li>
-      </ul> -->
-      <ul class = "title">
-        <li class = "name">
-          <h1>ReViner</h1>
-        </li>
-      </ul>
-    </nav>
-    <div id = "top-bar-buffer" style = "height: 60px">
-    </div>
+    <script type = "text/template" class="template" id="top-bar-template">
+      <nav class = "top-bar">
+        <ul class = "title">
+          <li class = "name">
+            <h1>ReViner</h1>
+          </li>
+        </ul>
+      </nav>
+      <div id = "top-bar-buffer" style = "height: 60px">
+      </div>
+    </script>
 
     <div id='container'></div>
 
@@ -48,7 +45,7 @@
               </div>
             </div>
             <div class = 'action-buttons'>
-              <div data-thumbnailUrl="<%= thumbnailUrl %>" 
+              <div data-thumbnailUrl="<%= thumbnailUrl %>"
                 data-videoUrl="<%= videoUrl %>"
                 description="<%= description %>"
                 class = 'button revine-button'>
@@ -60,6 +57,8 @@
       </div>
     </script>
     <script type="text/template" class="template" id="login-template">
+      <div class = 'wrapper-body'>
+      </div>
       <div class='row'>
         <div class='large-6 large-centered columns'>
           <form id='login'>
