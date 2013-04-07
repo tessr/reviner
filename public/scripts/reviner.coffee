@@ -38,7 +38,6 @@ $ ->
       thumbnailUrl: $(@).data('thumbnailurl')
       sessionId: sessionId
       userId: userId
-    console.log data
     $.ajax(
       method: 'POST'
       url: '/revines'
