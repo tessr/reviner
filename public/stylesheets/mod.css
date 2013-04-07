@@ -29,6 +29,20 @@
   height: 105%;
   background-image: url('/images/landing.jpg');
   background-size: cover;
+  z-index: -10;
+}
+
+.headline h1{
+  text-align: center;
+  color: white;
+  font-size: 72px;
+  font-family: 'Open Sans Bold', Helvetica, Arial, sans-serif;
+  text-shadow: 0 1px 1px black;
+}
+
+.panel p {
+  font-family: 'Open Sans Regular', Helvetica, Arial, sans-serif;
+
 }
 
 /* VINES */

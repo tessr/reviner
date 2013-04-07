@@ -100,7 +100,8 @@ Vino.prototype.revine = function(videoUrl, thumbnailUrl, description) {
 			form: { 
 				videoUrl: videoUrl,
 				thumbnailUrl: thumbnailUrl,
-				description: description
+				description: description,
+        postToTwitter: 1
 			},
       headers: {
 				'vine-session-id': this.sessionId,

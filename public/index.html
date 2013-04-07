@@ -27,11 +27,11 @@
       <div class='row vine-container'>
         <div class='large-6 large-centered columns'>
           <div class = 'video'>
-            <img src = "<%= thumbnailUrl %>" />
+            <video src="<%= videoUrl %>" loop controls></video>
           </div>
           <div class = 'metadata'>
             <div class = 'author-profile-picture'>
-              <img src = "<%= user.avatarUrl %>" />
+              <img src = "<%= user.avatarUrl %>" width="60px" />
             </div>
             <div class = 'text-data'>
               <div class = 'timestamp'>
@@ -45,8 +45,8 @@
               </div>
             </div>
             <div class = 'action-buttons'>
-              <div data-thumbnailUrl="<%= thumbnailUrl %>"
-                data-videoUrl="<%= videoUrl %>"
+              <div data-thumbnailurl="<%= thumbnailUrl %>"
+                data-videourl="<%= videoUrl %>"
                 data-description="<%= description %>"
                 class = 'button revine-button'>
                 ReVine
@@ -58,6 +58,19 @@
     </script>
     <script type="text/template" class="template" id="login-template">
       <div class = 'wrapper-body'>
+      </div>
+      <div class = 'headline large-6 large-centered columns'>
+        <h1>Reviner</h1>
+      </div>
+      <div class = 'row'>
+        <div class = 'large-6 large-centered columns'>
+          <div class = 'panel'>
+            <p>Reviner lets you repost your favorite vines to your own account. It's just like retweeting, but for Vines!
+            </p>
+            <p>Log in with your Vine credentials below.
+            </p>
+          </div>
+        </div>
       </div>
       <div class='row'>
         <div class='large-6 large-centered columns'>

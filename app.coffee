@@ -44,8 +44,10 @@ app.post '/revines', (req, res) ->
   videoUrl = req.param('videoUrl')
   description = req.param('description')
   thumbnailUrl = req.param('thumbnailUrl')
+
   client = new Vino(sessionId: req.param('sessionId'))
   client.revine(videoUrl, thumbnailUrl, description)
+
   Revine.findOne "originalPost.videoUrl": videoUrl, (err, doc) ->
     res.status(error: err, 500) if err?
     if doc?
