@@ -31,7 +31,9 @@ Revine = app.db.model('Revine', revineSchema)
 
 # routes
 app.post '/users/authenticate', (req, res) ->
+
   client = new Vino(username: req.param('username'), password: req.param('password'))
+
   client.login (err, sessionId, userId) ->
     throw new Error(err) if err
     client.homeFeed (err, feed) ->
@@ -40,6 +42,13 @@ app.post '/users/authenticate', (req, res) ->
       res.json {feed: feed, userId: userId, sessionId: sessionId}
 
 app.post '/revine', (req, res) ->
+  videoUrl = req.param('videoUrl')
+  description = req.param('description')
+  thumbnailUrl = req.param('thumbnailUrl')
+
+  client = new Vino(sessionId: req.param('sessionId'))
+
+  client.revine(videoUrl, thumbnailUrl, description)
   Revine.findOne "originalPost.videoUrl": req.param('videoUrl'), (err, doc) ->
     if err?
       console.log(err)

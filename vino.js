@@ -13,6 +13,9 @@ if (typeof request == 'undefined') {
 
 function Vino(options) {
 	options = options || {};
+  if ('sessionId' in options) {
+    this.sessionId = options.sessionId;
+  }
 	this.opts = extend(VINO_DEFAULT_OPTS, options);
 	this.debug(this.opts);
 }
@@ -84,6 +87,39 @@ Vino.prototype.login = function(callback) {
 			callback(null, that.sessionId, that.userId, that);
 		}
 	);
+};
+
+Vino.prototype.revine = function(videoUrl, thumbnailUrl, description) {
+	if (!('sessionId' in this))
+		throw new Error('must be logged in');
+  var bu = this.opts.baseUrl, that = this;
+  request(
+    {
+      url: bu+'posts',
+      method: 'post',
+			form: { 
+				videoUrl: videoUrl,
+				thumbnailUrl: thumbnailUrl,
+				description: description
+			},
+      headers: {
+				'vine-session-id': this.sessionId,
+				'User-Agent': this.opts.userAgent
+      }
+    },
+    function (err, resp, body) {
+			that.debug('revine response', err, resp, body);
+			if (err) {
+				callback(err, resp);
+				return;
+			}
+			body = JSON.parse(body);
+			if (body.code) {
+				callback('revine failure', body);
+			}
+			callback(null, body.data);
+    }
+  );
 };
 
 Vino.prototype.tagSearch = function(tag, callback) {
