@@ -21,6 +21,10 @@
 
 /* VINES */
 
+.row.vine-container {
+  border-bottom: solid 1px #ddd;
+}
+
 .metadata .author-profile-picture {
   float: left;
   padding: 10px;
