@@ -114,3 +114,7 @@
 .postToTwitter .twitter-share {
   opacity: 1.0;
 }
+
+video {
+  width: 100%;
+}

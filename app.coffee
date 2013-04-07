@@ -59,7 +59,7 @@ app.post '/login', (req, res) ->
 
 app.post '/revines', (req, res) ->
   videoUrl = req.param('videoUrl')
-  description = req.param('description')
+  description = "RV: #{req.param('description')}"
   thumbnailUrl = req.param('thumbnailUrl')
 
   client = new Vino(sessionId: req.session.sessionId)
