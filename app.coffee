@@ -60,8 +60,9 @@ app.post '/revines', (req, res) ->
         res.send(newRevine, 200)
 
 app.get '/revines', (req, res) ->
-  Revine.find().sort($natural: -1).limit(20).exec (err, docs) ->
-    res.render(docs, 200)
+  Revine.find().sort(created_at: -1).limit(20).exec (err, docs) ->
+    res.send(error: err, 500) if err?
+    res.send(docs, 200)
 
 # listen
 app.listen app.get('port'), ->
