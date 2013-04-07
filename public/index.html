@@ -27,7 +27,7 @@
       <div class='row vine-container'>
         <div class='large-6 large-centered columns'>
           <div class = 'video'>
-            <img src = "<%= thumbnailUrl %>" />
+            <video src="<%= videoUrl %>" loop controls></video>
           </div>
           <div class = 'metadata'>
             <div class = 'author-profile-picture'>
@@ -45,8 +45,8 @@
               </div>
             </div>
             <div class = 'action-buttons'>
-              <div data-thumbnailUrl="<%= thumbnailUrl %>"
-                data-videoUrl="<%= videoUrl %>"
+              <div data-thumbnailurl="<%= thumbnailUrl %>"
+                data-videourl="<%= videoUrl %>"
                 data-description="<%= description %>"
                 class = 'button revine-button'>
                 ReVine
