@@ -1,0 +1,15 @@
+
+.top-bar {
+  background: rgb(0,176,129);
+  text-align: center;
+ }
+
+.top-bar .name h1 {
+  font-family: 'Open Sans Bold', cursive;
+  color: white;
+  font-size: 24px;
+}
+
+.top-bar .title{
+  margin: 0 auto;
+}
