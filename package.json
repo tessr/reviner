@@ -6,7 +6,8 @@
     "coffee-script": "1.6.x",
     "express": "3.x",
     "mongoose": "3.6.x",
-    "mongoose-troop": "0.0.8"
+    "mongoose-troop": "0.0.8",
+    "passport": "~0.1.16"
   },
   "engines": {
     "node": ">=0.10.x"
