@@ -23,34 +23,55 @@
     </nav>
     <div id = "top-bar-buffer" style = "height: 60px">
     </div>
-    <div class='row vine-container'>
-      <div class='large-6 large-centered columns'>
-        <div class = 'video'>
-          <img src = "http://placekitten.com/480/480" />
-        </div>
-        <div class = 'metadata'>
-          <div class = 'author-profile-picture'>
-            <img src = "http://placekitten.com/60/60" />
+
+    <div id='container'></div>
+
+    <script type="text/template" class="template" id="post-template">
+      <div class='row vine-container'>
+        <div class='large-6 large-centered columns'>
+          <div class = 'video'>
+            <img src = "<%= thumbnailUrl %>" />
           </div>
-          <div class = 'text-data'>
-            <div class = 'timestamp'>
-              3h
+          <div class = 'metadata'>
+            <div class = 'author-profile-picture'>
+              <img src = "<%= user.avatarUrl %>" />
             </div>
-            <div class = 'author-name'>
-              Tess Rinearson
+            <div class = 'text-data'>
+              <div class = 'timestamp'>
+                3h
+              </div>
+              <div class = 'author-name'>
+                <%= user.username %>
+              </div>
+              <div class = 'video-caption'>
+                <%= description %>
+              </div>
             </div>
-            <div class = 'video-caption'>
-              Struggles with the singing arduino-kitten
-            </div>
-          </div>
-          <div class = 'action-buttons'>
-            <div class = 'button revine-button'>
-              ReVine
+            <div class = 'action-buttons'>
+              <div data-thumbnailUrl="<%= thumbnailUrl %>" 
+                data-videoUrl="<%= videoUrl %>"
+                description="<%= description %>"
+                class = 'button revine-button'>
+                ReVine
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </script>
+    <script type="text/template" class="template" id="login-template">
+      <div class='row'>
+        <div class='large-6 large-centered columns'>
+          <form id='login'>
+            <input name='username' type='text' placeholder='username' id='username' />
+            <input name='password' type='password' placeholder='password' id='password' />
+            <input type='submit' class='expand button' value='Log in'/>
+          </form>
+        </div>
     </div>
+    </script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+    <script src="/scripts/reviner.js"></script>
   </body>
 </html>
