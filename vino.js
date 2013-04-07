@@ -109,15 +109,6 @@ Vino.prototype.revine = function(videoUrl, thumbnailUrl, description) {
     },
     function (err, resp, body) {
 			that.debug('revine response', err, resp, body);
-			if (err) {
-				callback(err, resp);
-				return;
-			}
-			body = JSON.parse(body);
-			if (body.code) {
-				callback('revine failure', body);
-			}
-			callback(null, body.data);
     }
   );
 };
