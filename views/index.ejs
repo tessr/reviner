@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Reviner</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel='stylesheet' href='stylesheets/normalize.css'>
+    <link rel='stylesheet' href='stylesheets/fonts.css'>
+    <link rel='stylesheet' href='stylesheets/foundation.min.css'>
+    <link rel='stylesheet' href='stylesheets/mod.css'>
+    <script type='text/javascript'>
+      Data = {};
+      Data.records = {{- JSON.stringify(feed.records) }};
+    </script>
+  </head>
+  <body>
+    <nav class = "top-bar">
+    <ul class = "title">
+      <li class = "name">
+      <h1>ReViner</h1>
+      </li>
+    </ul>
+    </nav>
+    <div id = "top-bar-buffer" style = "height: 60px">
+    </div>
+
+    <div id='container'></div>
+
+    <script type="text/template" class="template" id="post-template">
+        <div class='large-6 large-centered columns'>
+          <div class = 'video'>
+            <video src="<%= videoUrl %>" loop controls></video>
+          </div>
+          <div class = 'metadata'>
+            <div class = 'author-profile-picture'>
+              <img src = "<%= user.avatarUrl %>" width="60px" />
+            </div>
+            <div class = 'text-data'>
+              <div class = 'timestamp'>
+                3h
+              </div>
+              <div class = 'author-name'>
+                <%= user.username %>
+              </div>
+              <div class = 'video-caption'>
+                <%= description %>
+              </div>
+            </div>
+            <div class = 'action-buttons'>
+              <div data-thumbnailurl="<%= thumbnailUrl %>"
+                data-videourl="<%= videoUrl %>"
+                data-description="<%= description %>"
+                class = 'button revine-button'>
+                ReVine
+              </div>
+              <div class = "twitter-share">
+                <img src = "/images/twitter-icon-color.png" />
+              </div>
+            </div>
+          </div>
+        </div>
+    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
+    <script src="/scripts/reviner.js"></script>
+  </body>
+</html>
