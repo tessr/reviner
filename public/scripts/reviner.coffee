@@ -48,12 +48,15 @@ class RevineView extends Backbone.View
     postToTwitter = if @model.get("postToTwitter") == 0 then 1 else 0
     @model.set(postToTwitter: postToTwitter)
     @$el.toggleClass 'postToTwitter'
-  revine: (e) ->
-    $(e.target).addClass "disabled"
-    $.ajax
+  revine: ->
+    $.ajax(
       method: 'POST'
       url: '/revines'
       data: @model.toJSON()
+    ).done (data) ->
+      $('.overlay').show( 'slow' , ->
+        $('.overlay').delay(1500).hide('slow')
+      )
   initialize: (options) ->
     @model.set(postToTwitter: 0)
     @template = options.template
