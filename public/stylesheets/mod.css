@@ -82,6 +82,16 @@
   margin-top: 10px;
 }
 
+.twitter-share{
+  float: right;
+  margin-left: 5px;
+}
+
+.twitter-share:hover{
+  cursor: hand;
+  cursor: pointer;
+}
+
 /* BUTTONS */
 
 .button {
@@ -91,7 +101,8 @@
 
 .button.revine-button {
   background: rgb(0,176,129);
-  width: 370px;
+  width: 310px;
   box-shadow: 0 4px 0 rgb(0, 127, 91);
   font-size: 18px;
+  float: left;
 }
