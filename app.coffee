@@ -5,7 +5,7 @@ mongoose = require('mongoose')
 troop = require('mongoose-troop')
 
 # connect db
-mongoose.connect('mongodb://<user>:<password>@dharma.mongohq.com:10023/reviner')
+mongoose.connect('mongodb://batman:robin@dharma.mongohq.com:10023/reviner')
 
 # app config
 app.configure ->
