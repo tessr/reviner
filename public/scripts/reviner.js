@@ -69,7 +69,7 @@
         var count;
         if (_this.model.get("revines") != null) {
           count = _this.model.get("revines").length;
-          _this.$el.find('.revines-length').html("" + (count + 1) + " RVs");
+          _this.$el.find('.revine-button').html("ReVine (" + (count + 1) + " RVs)");
         }
         return $('.overlay').show('slow', function() {
           return $('.overlay').delay(1500).hide('slow');
