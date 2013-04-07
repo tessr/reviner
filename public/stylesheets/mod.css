@@ -23,11 +23,16 @@
 
 .metadata .author-profile-picture {
   float: left;
-  padding: 3px;
+  padding: 10px;
   padding-left: 0;
 }
 
-.metadata .text-data {
+.metadata .text-data .timestamp {
+  color: #999;
+  float: right;
+  margin-right: 8px;
+  font-size: 20px;
+  line-height: 1.6;
 }
 
 .metadata .text-data .author-name {
