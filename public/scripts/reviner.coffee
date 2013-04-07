@@ -1,6 +1,11 @@
 sessionId = null
+userId = null
 
 $ ->
+  render_topbar = ->
+    topbar_template = $('#top-bar-template').html()
+    $('#top').html topbar_template
+
   render_posts = (posts) ->
     post_template = _.template $('#post-template').html()
     compiled = _.map(posts, post_template).join('')
@@ -22,6 +27,8 @@ $ ->
         data: login_form.serialize()
       ).done (data) ->
         sessionId = data.sessionId
+        userId = data.userId
+        render_topbar()
         render_posts(data.feed.records)
 
   $('#container').delegate '.revine-button', 'click', ->
@@ -30,6 +37,7 @@ $ ->
       description: $(@).data('description')
       thumbnailUrl: $(@).data('thumbnailurl')
       sessionId: sessionId
+      userId: userId
     console.log data
     $.ajax(
       method: 'POST'
