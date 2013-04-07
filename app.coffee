@@ -19,7 +19,7 @@ app.configure ->
 revineSchema = new mongoose.Schema
   reviners: Array
   originalPost: {}
-revineSchema.plugin(troop.timestamp) 
+revineSchema.plugin(troop.timestamp)
 
 revineSchema.methods = {
   timesRevined: ->
@@ -46,9 +46,8 @@ app.post '/revine', (req, res) ->
   thumbnailUrl = req.param('thumbnailUrl')
 
   client = new Vino(sessionId: req.param('sessionId'))
-
   client.revine(videoUrl, thumbnailUrl, description)
-  Revine.findOne "originalPost.videoUrl": req.param('videoUrl'), (err, doc) ->
+  Revine.findOne "originalPost.videoUrl": videoUrl, (err, doc) ->
     if err?
       console.log(err)
       res.status(500)
