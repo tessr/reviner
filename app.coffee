@@ -34,9 +34,9 @@ app.post '/users/authenticate', (req, res) ->
     username: req.param('username')
     password: req.param('password')
   client.login (err, sessionId, userId) ->
-    throw new Error(err) if err
+    res.send(error: err, 500) if err?
     client.homeFeed (err, feed) ->
-      throw new Error(err) if err
+      res.send(error: err, 500) if err?
       # all succeeded, return user object with the homefeed
       res.json {feed: feed, userId: userId, sessionId: sessionId}
 
@@ -48,19 +48,19 @@ app.post '/revine', (req, res) ->
   client = new Vino(sessionId: req.param('sessionId'))
   client.revine(videoUrl, thumbnailUrl, description)
   Revine.findOne "originalPost.videoUrl": videoUrl, (err, doc) ->
-    if err?
-      console.log(err)
-      res.status(500)
-    else if doc
+    res.status(error: err, 500) if err?
+    if doc?
       doc.reviners.push(req.param('userId'))
       doc.save (err) ->
-        throw new Error(err) if err
+        res.send(error: err, 500) if err?
+        res.send(doc, 200)
     else
       newRevine = new Revine
         originalPost: req.body,
         reviners: [req.param('userId')]
       newRevine.save (err) ->
-        throw new Error(err) if err
+        res.send(newRevine, 200) if err?
+        res.send(error: err, 500)
 
 # listen
 app.listen app.get('port'), ->
