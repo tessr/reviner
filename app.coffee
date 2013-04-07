@@ -16,10 +16,9 @@ app.configure ->
   app.use(express.bodyParser())
 
 # revine
-revineSchema = new mongoose Schema {
+revineSchema = new mongoose.Schema
   reviners: Array
   originalPost: {}
-}
 revineSchema.plugin(troop.timestamp) 
 
 revineSchema.methods = {
@@ -27,13 +26,13 @@ revineSchema.methods = {
     return reviners.length
 }
 
-Revine = app.db.model('Revine', revineSchema)
+Revine = mongoose.model('Revine', revineSchema)
 
 # routes
 app.post '/users/authenticate', (req, res) ->
-
-  client = new Vino(username: req.param('username'), password: req.param('password'))
-
+  client = new Vino
+    username: req.param('username')
+    password: req.param('password')
   client.login (err, sessionId, userId) ->
     throw new Error(err) if err
     client.homeFeed (err, feed) ->
@@ -56,15 +55,13 @@ app.post '/revine', (req, res) ->
     else if doc
       doc.reviners.push(req.param('userId'))
       doc.save (err) ->
-        console.log(err)
-        res.status(500)
+        throw new Error(err) if err
     else
       newRevine = new Revine
         originalPost: req.body,
         reviners: [req.param('userId')]
       newRevine.save (err) ->
-        console.log(err)
-        res.status(500)
+        throw new Error(err) if err
 
 # listen
 app.listen app.get('port'), ->

@@ -47,3 +47,21 @@
   font-family: 'Open Sans Regular', Helvetica, Arial, sans-serif;
   font-size: 24px;
 }
+
+.metadata .action-buttons {
+  margin-top: 10px;
+}
+
+/* BUTTONS */
+
+.button {
+  border-radius: 8px;
+  font-family: 'Open Sans Bold', Helvetica, Arial, sans-serif;
+}
+
+.button.revine-button {
+  background: rgb(0,176,129);
+  width: 370px;
+  box-shadow: 0 4px 0 rgb(0, 127, 91);
+  font-size: 18px;
+}
