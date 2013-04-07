@@ -21,8 +21,6 @@ function Vino(options) {
 }
 
 Vino.prototype.debug = function(args) {
-	if (this.opts.debug)
-		console.log('vino', arguments);
 };
 
 Vino.prototype.homeFeed = function(callback) {
@@ -72,6 +70,14 @@ Vino.prototype.login = function(callback) {
 			}
 		},
 		function (err, resp, body) {
+      body = JSON.parse(body);
+      if (!body.success) {
+        callback('login failure', body);
+      }
+      that.sessionId = body.data.key;
+      that.userId = body.data.userId;
+      that.debug('session id', that.sessionId);
+      callback(null, that.sessionId, that.userId, that);
 		}
 	);
 };

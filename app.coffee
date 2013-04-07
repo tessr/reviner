@@ -53,9 +53,12 @@ app.post '/login', (req, res) ->
     username: req.param('username')
     password: req.param('password')
   client.login (err, sessionId, userId) ->
-    res.send(error: err, 500) if err?
-    req.session.sessionId = sessionId
-    res.redirect('/')
+    if err?
+      res.redirect('/login.html')
+    else
+      console.log "no error"
+      req.session.sessionId = sessionId
+      res.redirect('/')
 
 app.post '/revines', (req, res) ->
   videoUrl = req.param('videoUrl')
