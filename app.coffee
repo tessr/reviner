@@ -4,6 +4,7 @@ Vino = require('./vino')
 app = express()
 mongoose = require('mongoose')
 troop = require('mongoose-troop')
+passport = require('passport')
 
 # connect db
 mongoose.connect('mongodb://batman:robin@dharma.mongohq.com:10023/reviner')
@@ -25,6 +26,9 @@ revineSchema.plugin(troop.timestamp)
 Revine = mongoose.model('Revine', revineSchema)
 
 # routes
+app.post('/login', passport.authenticate('local'))
+
+
 app.post '/users/authenticate', (req, res) ->
   client = new Vino
     username: req.param('username')
@@ -34,7 +38,7 @@ app.post '/users/authenticate', (req, res) ->
     client.homeFeed (err, feed) ->
       res.send(error: err, 500) if err?
       # all succeeded, return user object with the homefeed
-      res.json {feed: feed, userId: userId, sessionId: sessionId}
+      res.send({feed: feed, userId: userId, sessionId: sessionId}, 200)
 
 app.post '/revines', (req, res) ->
   videoUrl = req.param('videoUrl')
