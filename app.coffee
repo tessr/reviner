@@ -24,15 +24,24 @@ app.configure ->
   app.use(express.cookieParser('fuck this shit'))
   app.use(express.session())
   
-
-# revine
-revineSchema = new mongoose.Schema
-  reviners: Array
-  originalPost: {}
-  timesRevined: Number
+# schemas
+revineSchema = new mongoose.Schema userId: Number
 revineSchema.plugin(troop.timestamp)
-
 Revine = mongoose.model('Revine', revineSchema)
+
+postSchema = new mongoose.Schema
+  avatarUrl: String
+  userId: Number
+  description: String
+  location: String
+  postId: Number
+  shareUrl: String
+  thumbnailUrl: String
+  user: {}
+  videoUrl: String
+  foursquareVenueId: {}
+  revines: [revineSchema]
+Post = mongoose.model('Post', postSchema)
 
 # routes
 app.get '/', (req, res) ->
@@ -58,29 +67,23 @@ app.post '/login', (req, res) ->
     res.redirect('/')
 
 app.post '/revines', (req, res) ->
-  videoUrl = req.param('videoUrl')
-  description = "RV: #{req.param('description')}"
-  thumbnailUrl = req.param('thumbnailUrl')
-
+  post = req.body
+  description = "RV: #{post.description}"
   client = new Vino(sessionId: req.session.sessionId)
-  client.revine(videoUrl, thumbnailUrl, description)
+  client.revine(post.videoUrl, post.thumbnailUrl, description)
 
-  Revine.findOne {"videoUrl": videoUrl}, (err, doc) ->
+  Post.findOne {videoUrl: post.videoUrl}, (err, doc) ->
     res.status(error: err, 500) if err?
     if doc?
-      doc.reviners.push(req.param('userId'))
-      doc.timesRevined++
-      doc.save (err) ->
-        res.send(error: err, 500) if err?
-        res.send(doc, 200)
+      doc.revines.push(new Revine(userId: post.userId))
     else
-      # add new attributes
-      req.body.timesRevined = 1
-      req.body.reviners = [req.param('userId')]
-      newRevine = new Revine req.body
-      newRevine.save (err) ->
-        res.send(error: err, 500) if err?
-        res.send(newRevine, 200)
+      post.revines = [new Revine(userId: post.userId)]
+      doc = new Post(post)
+    doc.save (err) ->
+      res.send(error: err, 500) if err?
+      console.log('\n\n\n\n\n\n', doc, '\n\n\n\n\n\n')
+      console.log('\n\n\n\n\n\n', err, '\n\n\n\n\n\n')
+      res.send(doc, 200)
 
 app.get '/revines', (req, res) ->
   Revine.find().sort(created_at: -1).limit(20).exec (err, docs) ->
