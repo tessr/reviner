@@ -25,7 +25,7 @@ app.configure ->
   app.use(express.session())
   
 # schemas
-revineSchema = new mongoose.Schema userId: Number
+revineSchema = new mongoose.Schema(userId: Number)
 revineSchema.plugin(troop.timestamp)
 Revine = mongoose.model('Revine', revineSchema)
 
@@ -42,6 +42,7 @@ postSchema = new mongoose.Schema
   foursquareVenueId: {}
   revines: [revineSchema]
   timesRevined: Number
+postSchema.plugin(troop.timestamp)
 Post = mongoose.model('Post', postSchema)
 
 # routes
@@ -88,12 +89,12 @@ app.post '/revines', (req, res) ->
       res.send(doc, 200)
 
 app.get '/revines', (req, res) ->
-  Revine.find().sort(created_at: -1).limit(20).exec (err, docs) ->
+  Post.find().sort(updated_at: -1).limit(20).exec (err, docs) ->
     res.send(error: err, 500) if err?
     res.send(docs, 200)
 
 app.get '/revines/top', (req, res) ->
-  Revine.find().sort(timesRevined: -1).limit(20).exec (err, docs) ->
+  Post.find().sort(timesRevined: -1).limit(20).exec (err, docs) ->
     res.send(error: err, 500) if err?
     res.send(docs)
 
