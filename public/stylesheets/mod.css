@@ -1,15 +1,49 @@
+/* TOP BAR */
 
 .top-bar {
+  position: fixed;
+  width: 100%;
+  z-index: 5;
   background: rgb(0,176,129);
   text-align: center;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.2);
  }
 
 .top-bar .name h1 {
-  font-family: 'Open Sans Bold', cursive;
+  font-family: 'Open Sans Bold', Helvetica, Arial, sans-serif;
   color: white;
   font-size: 24px;
 }
 
 .top-bar .title{
   margin: 0 auto;
+}
+
+/* VINES */
+
+.metadata .author-profile-picture {
+  float: left;
+  padding: 10px;
+  padding-left: 0;
+}
+
+.metadata .text-data .timestamp {
+  color: #999;
+  float: right;
+  margin-right: 8px;
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+.metadata .text-data .author-name {
+  color: rgb(26, 170, 133);
+  font-family: 'Open Sans Bold', Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  font-size: 20px;
+}
+
+.metadata .text-data .video-caption {
+  color: #111;
+  font-family: 'Open Sans Regular', Helvetica, Arial, sans-serif;
+  font-size: 24px;
 }
