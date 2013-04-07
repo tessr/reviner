@@ -15,6 +15,9 @@ app.configure ->
   app.set('env', process.env.NODE_ENV or 'development')
   app.set('port', process.env.PORT or 3000)
   app.use(express.bodyParser())
+  app.set('views', __dirname + '/views')
+  app.set('view engine', 'ejs')
+  
 
 # revine
 revineSchema = new mongoose.Schema
@@ -73,7 +76,12 @@ app.get '/revines', (req, res) ->
 app.get '/revines/top', (req, res) ->
   Revine.find().sort(timesRevined: -1).limit(20).exec (err, docs) ->
     res.send(error: err, 500) if err?
-    res.send(docs, 200)
+    res.send(docs)
+
+app.get '/top', (req, res) ->
+  Revine.find().sort(timesRevined: -1).limit(20).exec (err, docs) ->
+    res.send(error: err, 500) if err?
+    res.render 'top', {posts: docs}
 
 # listen
 app.listen app.get('port'), ->
