@@ -18,7 +18,7 @@ app.post '/users/authenticate', (req, res) ->
     client.homeFeed (err, feed) ->
       throw new Error(err) if err
       # all succeeded, return user object with the homefeed
-      console.log feed.records
+      res.json feed.records
 
 # listen
 app.listen app.get('port'), ->
