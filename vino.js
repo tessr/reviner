@@ -72,19 +72,6 @@ Vino.prototype.login = function(callback) {
 			}
 		},
 		function (err, resp, body) {
-			that.debug('login response', err, resp, body);
-			if (err) {
-				callback(err, resp);
-				return;
-			}
-			body = JSON.parse(body);
-			if (!body.success) {
-				callback('login failure', body);
-			}
-			that.sessionId = body.data.key;
-			that.userId = body.data.userId;
-			that.debug('session id', that.sessionId);
-			callback(null, that.sessionId, that.userId, that);
 		}
 	);
 };
