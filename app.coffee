@@ -15,16 +15,6 @@ app.configure ->
   app.set('port', process.env.PORT or 3000)
   app.use(express.bodyParser())
 
-# routes
-app.post '/users/authenticate', (req, res) ->
-  client = new Vino(username: req.param('username'), password: req.param('password'))
-  client.login (err, key, username) ->
-    throw new Error(err) if err
-    client.homeFeed (err, feed) ->
-      throw new Error(err) if err
-      # all succeeded, return user object with the homefeed
-      res.json feed.records
-
 # revine
 revineSchema = new mongoose Schema {
   reviners: Array
@@ -40,6 +30,15 @@ revineSchema.methods = {
 Revine = app.db.model('Revine', revineSchema)
 
 # routes
+app.post '/users/authenticate', (req, res) ->
+  client = new Vino(username: req.param('username'), password: req.param('password'))
+  client.login (err, key, username) ->
+    throw new Error(err) if err
+    client.homeFeed (err, feed) ->
+      throw new Error(err) if err
+      # all succeeded, return user object with the homefeed
+      res.json feed.records
+
 app.post '/revine', (req, res) ->
   Revine.findOne "originalPost.videoUrl": req.param('videoUrl'), (err, doc) ->
     if err?
