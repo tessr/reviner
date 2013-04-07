@@ -1,3 +1,4 @@
+/* TOP BAR */
 
 .top-bar {
   position: fixed;
@@ -9,11 +10,35 @@
  }
 
 .top-bar .name h1 {
-  font-family: 'Open Sans Bold', cursive;
+  font-family: 'Open Sans Bold', Helvetica, Arial, sans-serif;
   color: white;
   font-size: 24px;
 }
 
 .top-bar .title{
   margin: 0 auto;
+}
+
+/* VINES */
+
+.metadata .author-profile-picture {
+  float: left;
+  padding: 3px;
+  padding-left: 0;
+}
+
+.metadata .text-data {
+}
+
+.metadata .text-data .author-name {
+  color: rgb(26, 170, 133);
+  font-family: 'Open Sans Bold', Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  font-size: 20px;
+}
+
+.metadata .text-data .video-caption {
+  color: #111;
+  font-family: 'Open Sans Regular', Helvetica, Arial, sans-serif;
+  font-size: 24px;
 }
