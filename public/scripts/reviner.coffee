@@ -53,12 +53,18 @@ class RevineView extends Backbone.View
       method: 'POST'
       url: '/revines'
       data: @model.toJSON()
-    ).done (data) ->
+    ).done (data) =>
+      # should refactor into a subview
+      if @model.get("revines")?
+        count = @model.get("revines").length
+        @$el.find('.revines-length').html("#{count+1} RVs")
       $('.overlay').show( 'slow' , ->
         $('.overlay').delay(1500).hide('slow')
       )
   initialize: (options) ->
     @model.set(postToTwitter: 0)
+    @model.set(revines: []) if not @model.get("revines")
+    @model.set(created: new Date())
     @template = options.template
   render: ->
     compiled = _.template @template, @model.toJSON()

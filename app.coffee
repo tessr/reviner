@@ -98,6 +98,11 @@ app.get '/revines/top', (req, res) ->
     res.send(error: err, 500) if err?
     res.send(docs)
 
+app.get '/top', (req, res) ->
+  Post.find().sort(timesRevined: -1).limit(20).exec (err, docs) ->
+    res.send(error: err, 500) if err?
+    res.render('index', {feed: {records: docs}})
+
 # listen
 app.listen app.get('port'), ->
   console.log "Listening on #{app.get('port')}"
