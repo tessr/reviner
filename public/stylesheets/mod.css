@@ -1,7 +1,11 @@
 
 .top-bar {
+  position: fixed;
+  width: 100%;
+  z-index: 5;
   background: rgb(0,176,129);
   text-align: center;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.2);
  }
 
 .top-bar .name h1 {
