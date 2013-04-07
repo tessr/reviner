@@ -4,7 +4,11 @@ Vino = require('./vino')
 app = express()
 mongoose = require('mongoose')
 troop = require('mongoose-troop')
-passport = require('passport')
+
+# set up ejs to play nice with underscore
+ejs = require('ejs')
+ejs.open = '{{'
+ejs.close = '}}'
 
 # connect db
 mongoose.connect('mongodb://batman:robin@dharma.mongohq.com:10023/reviner')
@@ -17,6 +21,8 @@ app.configure ->
   app.use(express.bodyParser())
   app.set('views', __dirname + '/views')
   app.set('view engine', 'ejs')
+  app.use(express.cookieParser('fuck this shit'))
+  app.use(express.session())
   
 
 # revine
@@ -29,29 +35,37 @@ revineSchema.plugin(troop.timestamp)
 Revine = mongoose.model('Revine', revineSchema)
 
 # routes
-app.post('/login', passport.authenticate('local'))
+app.get '/', (req, res) ->
+  if req.session.sessionId
+    client = new Vino(sessionId: req.session.sessionId)
+    client.homeFeed (err, feed) ->
+      res.send(error: err, 500) if err?
+      # all succeeded, return user object with the homefeed
+      res.render('index', {feed: feed})
+  else
+    res.redirect('/login.html')
 
+app.get '/login', (req, res) ->
+  res.redirect '/login.html'
 
-app.post '/users/authenticate', (req, res) ->
+app.post '/login', (req, res) ->
   client = new Vino
     username: req.param('username')
     password: req.param('password')
   client.login (err, sessionId, userId) ->
     res.send(error: err, 500) if err?
-    client.homeFeed (err, feed) ->
-      res.send(error: err, 500) if err?
-      # all succeeded, return user object with the homefeed
-      res.send({feed: feed, userId: userId, sessionId: sessionId}, 200)
+    req.session.sessionId = sessionId
+    res.redirect('/')
 
 app.post '/revines', (req, res) ->
   videoUrl = req.param('videoUrl')
   description = req.param('description')
   thumbnailUrl = req.param('thumbnailUrl')
 
-  client = new Vino(sessionId: req.param('sessionId'))
+  client = new Vino(sessionId: req.session.sessionId)
   client.revine(videoUrl, thumbnailUrl, description)
 
-  Revine.findOne "originalPost.videoUrl": videoUrl, (err, doc) ->
+  Revine.findOne {"videoUrl": videoUrl}, (err, doc) ->
     res.status(error: err, 500) if err?
     if doc?
       doc.reviners.push(req.param('userId'))
@@ -60,10 +74,10 @@ app.post '/revines', (req, res) ->
         res.send(error: err, 500) if err?
         res.send(doc, 200)
     else
-      newRevine = new Revine
-        originalPost: req.body
-        reviners: [req.param('userId')]
-        timesRevined: 1
+      # add new attributes
+      req.body.timesRevined = 1
+      req.body.reviners = [req.param('userId')]
+      newRevine = new Revine req.body
       newRevine.save (err) ->
         res.send(error: err, 500) if err?
         res.send(newRevine, 200)
