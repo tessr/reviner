@@ -23,3 +23,15 @@ $ ->
       ).done (data) ->
         sessionId = data.sessionId
         render_posts(data.feed.records)
+
+  $('#container').delegate '.revine-button', 'click', ->
+    data =
+      videoUrl: $(@).data('videoUrl')
+      description: $(@).data('description')
+      thumbnailUrl: $(@).data('thumbnailUrl')
+    $.ajax(
+      method: 'POST'
+      url: '/revines'
+      data: data
+    ).done (data) ->
+      console.log data
