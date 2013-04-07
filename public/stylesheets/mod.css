@@ -49,6 +49,7 @@
 
 .row.vine-container {
   border-bottom: solid 1px #ddd;
+  margin-bottom: 40px;
 }
 
 .metadata .author-profile-picture {
@@ -83,7 +84,7 @@
 }
 
 .twitter-share{
-  float: right;
+  float: left;
   margin-left: 5px;
 }
 
