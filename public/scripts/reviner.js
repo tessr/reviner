@@ -67,7 +67,7 @@
         data: this.model.toJSON()
       }).done(function(data) {
         var count;
-        if (_this.model.get("revines") != null) {
+        if (_this.model.get("revines").length) {
           count = _this.model.get("revines").length;
           _this.$el.find('.revine-button').html("ReVine (" + (count + 1) + " RVs)");
         }
