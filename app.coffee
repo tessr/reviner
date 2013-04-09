@@ -41,7 +41,7 @@ postSchema = new mongoose.Schema
   videoUrl: String
   foursquareVenueId: {}
   revines: [revineSchema]
-  timesRevined: Number
+  timesRevined: {type: Number, default: 1}
 postSchema.plugin(troop.timestamp)
 Post = mongoose.model('Post', postSchema)
 
