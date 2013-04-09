@@ -56,3 +56,13 @@ $ ->
     views.push revine_view.render()
   viewEls = _.pluck views, 'el'
   $('#container').html viewEls
+
+  $('.footer').click( ->
+    $('.shadow').show()
+    $('.about').show()
+  )
+
+  $('.shadow').click( ->
+    $('.shadow').hide()
+    $('.about').hide()
+  )
