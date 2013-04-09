@@ -58,12 +58,8 @@ $ ->
   viewEls = _.pluck views, 'el'
   $('#container').html viewEls
 
-  $('.footer').click( ->
-    $('.shadow').show()
-    $('.about').show()
-  )
+  $('.footer').on 'click', ->
+    $('.shadow, .about').show()
 
-  $('.shadow').click( ->
-    $('.shadow').hide()
-    $('.about').hide()
-  )
+  $('.shadow').on 'click', ->
+    $('.shadow, .about').hide()

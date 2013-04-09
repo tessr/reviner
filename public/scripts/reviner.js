@@ -106,7 +106,13 @@
       return views.push(revine_view.render());
     });
     viewEls = _.pluck(views, 'el');
-    return $('#container').html(viewEls);
+    $('#container').html(viewEls);
+    $('.footer').on('click', function() {
+      return $('.shadow, .about').show();
+    });
+    return $('.shadow').on('click', function() {
+      return $('.shadow, .about').hide();
+    });
   });
 
 }).call(this);
