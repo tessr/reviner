@@ -27,35 +27,34 @@
 
     <script type="text/template" class="template" id="post-template">
         <div class='large-6 large-centered columns'>
-          <div class = 'video'>
-            <video src="<%= videoUrl %>" loop controls></video>
-          </div>
-          <div class = 'metadata'>
-            <div class = 'author-profile-picture'>
-              <img src = "<%= user.avatarUrl %>" width="60px" />
+          <div class='row'>
+            <div class='large-12 columns'>
+              <video src="<%= videoUrl %>" loop controls></video>
             </div>
-            <div class = 'text-data'>
-              <div class = 'timestamp'>
-                <%= timeSince(created) %>
-              </div>
+          </div>
+          <div class='row'>
+            <div class='small-2 columns'>
+              <img src = "<%= user.avatarUrl %>" />
+            </div>
+            <div class='small-8 columns'>
               <div class = 'author-name'>
                 <%= user.username %>
               </div>
               <div class = 'video-caption'>
                 <%= description %>
               </div>
-            </div>
-            <div class = 'action-buttons'>
-              <div class = 'button revine-button'>
+              <div class = 'expand button revine-button'>
                 ReVine
-              <% if (revines.length) { %>
-                  (<%= revines.length %> RVs)
-              <% } %>
-
+                <% if (revines.length) { %>
+                    (<%= revines.length %> RVs)
+                <% } %>
               </div>
-              <div class = "twitter-share">
-                <img src = "/images/twitter-icon-color.png" />
+            </div>
+            <div class='small-2 columns'>
+              <div class = 'timestamp'>
+                <%= timeSince(created) %>
               </div>
+              <img class='twitter-share' src="/images/twitter-icon-color.png" />
             </div>
           </div>
         </div>
