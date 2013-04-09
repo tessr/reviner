@@ -1,21 +1,13 @@
 VINO_DEFAULT_OPTS =
   baseUrl: 'https://api.vineapp.com/'
-	userAgent: 'com.vine.iphone/1.0.7 (unknown, iPhone OS 6.1.2, iPhone, Scale/2.000000)'
+  userAgent: 'com.vine.iphone/1.0.7 (unknown, iPhone OS 6.1.2, iPhone, Scale/2.000000)'
 
 request = require("request")
 
-extend = (target) ->
-  i = 1
-  while i < arguments.length
-    source = arguments[i]
-    keys = Object.keys source
-
-    j = 0
-    while j < keys.length
-      name = keys[j]
-      target[name] = source[name]
-      j++
-    i++
+extend = (target, source) ->
+  keys = Object.keys source
+  for name in keys
+    target[name] = source[name]
   return target
 
 class Vino
