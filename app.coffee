@@ -76,7 +76,7 @@ app.post '/revines', (req, res) ->
   client.revine
     thumbnailUrl: post.thumbnailUrl.replace("/v/", "/").replace(/\?.*/, "")
     videoUrl: post.videoUrl.replace("/v/", "/").replace(/\?.*/, "")
-    description: post.description
+    description: "RV: #{post.description}"
     postToTwitter: post.postToTwitter
 
   Post.findOne {videoUrl: post.videoUrl}, (err, doc) ->
