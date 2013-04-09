@@ -72,9 +72,12 @@ app.post '/login', (req, res) ->
 
 app.post '/revines', (req, res) ->
   post = req.body
-  description = "RV: #{post.description}"
   client = new Vino(sessionId: req.session.sessionId)
-  client.revine(post.videoUrl, post.thumbnailUrl, description, post.postToTwitter)
+  client.revine
+    thumbnailUrl: post.thumbnailUrl.replace("/v/", "/").replace(/\?.*/, "")
+    videoUrl: post.videoUrl.replace("/v/", "/").replace(/\?.*/, "")
+    description: post.description
+    postToTwitter: post.postToTwitter
 
   Post.findOne {videoUrl: post.videoUrl}, (err, doc) ->
     res.status(error: err, 500) if err?
