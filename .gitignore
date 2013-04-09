@@ -9,6 +9,9 @@ lib-cov
 *.pid
 *.gz
 
+*.js
+/public/scripts/*.js
+
 pids
 logs
 results
