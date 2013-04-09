@@ -70,6 +70,15 @@ app.post '/login', (req, res) ->
       req.session.sessionId = sessionId
       res.redirect('/')
 
+app.post '/register', (req, res) ->
+  client = new Vino()
+  client.register req.param('username'), req.param('email'), req.param('password'), (err, sessionId) ->
+    if err?
+      res.redirect('/login.html')
+    else
+      req.session.sessionId = sessionId
+      res.redirect('/')
+
 app.post '/revines', (req, res) ->
   post = req.body
   client = new Vino(sessionId: req.session.sessionId)

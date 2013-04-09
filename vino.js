@@ -82,6 +82,37 @@ Vino.prototype.login = function(callback) {
 	);
 };
 
+Vino.prototype.register = function(username, email, password, callback) {
+  var bu = this.opts.baseUrl, that = this;
+  request(
+    {
+      url: bu+'users',
+      method: 'post',
+      form: {
+        username: username,
+        email: email,
+        authenticate: 1,
+        password: password
+      },
+      headers: {
+        'User-Agent': this.opts.userAgent
+      }
+    },
+    function(err, resp, body) {
+      body = JSON.parse(body);
+      if (!body.success) {
+        callback('register failure', body);
+        return;
+      }
+      that.sessionId = body.data.key;
+      that.userId = body.data.userId;
+      that.debug('session id', that.sessionId);
+      callback(null, that.sessionId, that.userId, that);
+    }
+  );
+};
+
+
 Vino.prototype.revine = function(params) {
 	if (!('sessionId' in this))
 		throw new Error('must be logged in');
