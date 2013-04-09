@@ -86,9 +86,6 @@
           revines: []
         });
       }
-      this.model.set({
-        created: new Date()
-      });
       return this.template = options.template;
     };
 
