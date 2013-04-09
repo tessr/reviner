@@ -24,10 +24,15 @@ class Vino
     if 'sessionId' of options
       @sessionId = options.sessionId
     @opts = extend(VINO_DEFAULT_OPTS, options)
-  homeFeed: (cb) ->
+  homeFeed: (pageNumber, cb) ->
     throw new Error('must be logged in') if not ('sessionId' of @)
+    if typeof pageNumber == 'function'
+      cb = pageNumber
+      pageNumber = null
     request(
       url: @opts.baseUrl + '/timelines/graph'
+      qs:
+        page: pageNumber || 1
       method: 'get'
       headers:
         'vine-session-id': @sessionId
