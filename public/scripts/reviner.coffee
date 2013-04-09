@@ -55,7 +55,7 @@ class RevineView extends Backbone.View
       data: @model.toJSON()
     ).done (data) =>
       # should refactor into a subview
-      if @model.get("revines")?
+      if @model.get("revines").length
         count = @model.get("revines").length
         @$el.find('.revine-button').html("ReVine (#{count+1} RVs)")
       $('.overlay').show( 'slow' , ->

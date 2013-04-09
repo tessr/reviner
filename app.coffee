@@ -41,7 +41,7 @@ postSchema = new mongoose.Schema
   videoUrl: String
   foursquareVenueId: {}
   revines: [revineSchema]
-  timesRevined: Number
+  timesRevined: {type: Number, default: 1}
 postSchema.plugin(troop.timestamp)
 Post = mongoose.model('Post', postSchema)
 
@@ -70,11 +70,23 @@ app.post '/login', (req, res) ->
       req.session.sessionId = sessionId
       res.redirect('/')
 
+app.post '/register', (req, res) ->
+  client = new Vino()
+  client.register req.param('username'), req.param('email'), req.param('password'), (err, sessionId) ->
+    if err?
+      res.redirect('/login.html')
+    else
+      req.session.sessionId = sessionId
+      res.redirect('/')
+
 app.post '/revines', (req, res) ->
   post = req.body
-  description = "RV: #{post.description}"
   client = new Vino(sessionId: req.session.sessionId)
-  client.revine(post.videoUrl, post.thumbnailUrl, description, post.postToTwitter)
+  client.revine
+    thumbnailUrl: post.thumbnailUrl.replace("/v/", "/").replace(/\?.*/, "")
+    videoUrl: post.videoUrl.replace("/v/", "/").replace(/\?.*/, "")
+    description: "RV: #{post.description}"
+    postToTwitter: post.postToTwitter
 
   Post.findOne {videoUrl: post.videoUrl}, (err, doc) ->
     res.status(error: err, 500) if err?

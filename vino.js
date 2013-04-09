@@ -2,8 +2,7 @@ var VINO_VERSION = "0.0.1";
 var VINO_DEFAULT_OPTS = {
 	baseUrl: 'https://api.vineapp.com/',
 	debug: 0,
-	deviceToken: 'Vino',
-	userAgent: 'com.vine.iphone/1.01 (unknown, iPhone OS 6.0, iPad, Scale/2.000000) (Vino.js/'+VINO_VERSION+')'
+	userAgent: 'com.vine.iphone/1.0.7 (unknown, iPhone OS 6.1.2, iPhone, Scale/2.000000)'
 };
 
 // use browser-request if available, fall back to npm request
@@ -83,26 +82,55 @@ Vino.prototype.login = function(callback) {
 	);
 };
 
-Vino.prototype.revine = function(videoUrl, thumbnailUrl, description, postToTwitter) {
+Vino.prototype.register = function(username, email, password, callback) {
+  var bu = this.opts.baseUrl, that = this;
+  request(
+    {
+      url: bu+'users',
+      method: 'post',
+      form: {
+        username: username,
+        email: email,
+        authenticate: 1,
+        password: password
+      },
+      headers: {
+        'User-Agent': this.opts.userAgent
+      }
+    },
+    function(err, resp, body) {
+      body = JSON.parse(body);
+      if (!body.success) {
+        callback('register failure', body);
+        return;
+      }
+      that.sessionId = body.data.key;
+      that.userId = body.data.userId;
+      that.debug('session id', that.sessionId);
+      callback(null, that.sessionId, that.userId, that);
+    }
+  );
+};
+
+
+Vino.prototype.revine = function(params) {
 	if (!('sessionId' in this))
 		throw new Error('must be logged in');
   var bu = this.opts.baseUrl, that = this;
+  params.allowReshare = params.allowReshare || 1;
   request(
     {
       url: bu+'posts',
       method: 'post',
-			form: { 
-				videoUrl: videoUrl,
-				thumbnailUrl: thumbnailUrl,
-				description: description,
-        postToTwitter: postToTwitter
-			},
+			form: params,
       headers: {
 				'vine-session-id': this.sessionId,
 				'User-Agent': this.opts.userAgent
       }
     },
     function (err, resp, body) {
+      console.log(params);
+      console.log(body);
 			that.debug('revine response', err, resp, body);
     }
   );
