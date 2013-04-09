@@ -141,6 +141,10 @@
   padding-bottom: 5px;
 }
 
+.avatar {
+  padding-top: 8px;
+}
+
 .twitter-share {
   opacity: 0.3;
   float: right;
