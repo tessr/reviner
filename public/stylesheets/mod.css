@@ -157,3 +157,11 @@ video {
 	padding: 5px;
 	margin: 15px;
 }
+
+.disclaimer {
+	color: #eee;
+}
+
+.disclaimer a {
+	background-color: rgba(255, 255, 255, 0.3);
+}
