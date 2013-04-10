@@ -56,6 +56,17 @@ app.get '/', (req, res) ->
   else
     res.redirect('/login.html')
 
+app.get '/feed', (req, res) ->
+  if req.session.sessionId
+    client = new Vino(sessionId: req.session.sessionId)
+    client.homeFeed req.param('pageNumber'), (err, feed) ->
+      res.send(error: err, 500) if err?
+      # all succeeded, return user object with the homefeed
+      # res.render('index', {feed: feed})
+      res.send(feed, 200)
+  else
+    res.send(error: "you're not logged in broskie", 401)
+
 app.get '/login', (req, res) ->
   res.redirect '/login.html'
 
