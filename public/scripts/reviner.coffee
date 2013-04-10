@@ -40,6 +40,7 @@ class RevineView extends Backbone.View
       )
   initialize: (options) ->
     @model.set(postToTwitter: 0)
+    @model.set(created: new Date()) if not @model.get('created')?
     @model.set(revines: []) if not @model.get("revines")
     @template = options.template
   render: ->

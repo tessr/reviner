@@ -73,6 +73,11 @@
       this.model.set({
         postToTwitter: 0
       });
+      if (this.model.get('created') == null) {
+        this.model.set({
+          created: new Date()
+        });
+      }
       if (!this.model.get("revines")) {
         this.model.set({
           revines: []
