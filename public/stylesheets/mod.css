@@ -20,6 +20,23 @@
   margin: 0 auto;
 }
 
+.footer {
+  font-family: 'Open Sans Bold', Helvetica, Arial, sans-serif;
+  position: fixed;
+  width: 60px;
+  color: white;
+  font-size: 32px;
+  z-index: 6;
+  background: rgba(0,0,0,.4);
+  text-align: center;
+  height: 60px;
+  bottom: 0;
+  right: 0;
+  cursor: hand;
+  cursor: pointer;
+  padding: 15px;
+}
+
 .overlay {
   position: fixed;
   top: 80px;
@@ -34,6 +51,39 @@
   font-family: 'Open Sans Regular', Helvetica, Arial, sans-serif;
   font-size: 24px;
   padding: 12px;
+  display: none;
+}
+
+.about {
+  position: fixed;
+  top: 80px;
+  z-index: 15;
+  background: white;
+  width: 480px;
+  left: 50%;
+  margin-left: -240px;
+  padding: 20px;
+  box-shadow: 0 0 10px 2px rgba(0,0,0,0.7);
+  border: solid 1px #333;
+  display: none;
+}
+
+.about h2 {
+  font-family: 'Open Sans Bold', Helvetica, Arial, sans-serif;
+  color: rgb(0,176,129);
+  font-size: 24px;
+}
+
+.shadow {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 10;
+  cursor: pointer;
+  cursor: hand;
   display: none;
 }
 
@@ -69,44 +119,42 @@
   margin-bottom: 40px;
 }
 
-.metadata .author-profile-picture {
-  float: left;
-  padding: 10px;
-  padding-left: 0;
-}
-
-.metadata .text-data .timestamp {
+.timestamp {
   color: #999;
-  float: right;
-  margin-right: 8px;
+  text-align: right;
   font-size: 20px;
   line-height: 1.6;
+  padding-bottom: 5px;
 }
 
-.metadata .text-data .author-name {
+.author-name {
   color: rgb(26, 170, 133);
   font-family: 'Open Sans Bold', Helvetica, Arial, sans-serif;
   line-height: 1.6;
   font-size: 20px;
 }
 
-.metadata .text-data .video-caption {
+.video-caption {
   color: #111;
   font-family: 'Open Sans Regular', Helvetica, Arial, sans-serif;
   font-size: 24px;
+  padding-bottom: 5px;
 }
 
-.metadata .action-buttons {
-  margin-top: 10px;
+.avatar {
+  padding-top: 8px;
 }
 
-.twitter-share{
-  float: left;
-  margin-left: 5px;
+.twitter-share {
+  opacity: 0.3;
+  float: right;
+}
+
+.postToTwitter .twitter-share {
+  opacity: 1.0;
 }
 
 .twitter-share:hover{
-  cursor: hand;
   cursor: pointer;
 }
 
@@ -119,7 +167,6 @@
 
 .button.revine-button {
   background: rgb(0,176,129);
-  width: 310px;
   box-shadow: 0 4px 0 rgb(0, 127, 91);
   font-size: 18px;
   float: left;
@@ -141,17 +188,6 @@
   margin-top: 0;
 }
 
-.twitter-share {
-  opacity: 0.3;
-}
-
-.postToTwitter .twitter-share {
-  opacity: 1.0;
-}
-
-video {
-  width: 100%;
-}
 
 .api {
 	padding: 5px;
@@ -164,4 +200,8 @@ video {
 
 .disclaimer a {
 	background-color: rgba(255, 255, 255, 0.3);
+}
+
+video {
+  width: 100%;
 }

@@ -3,6 +3,8 @@
   <head>
     <title>ReViner</title>
     <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link rel='stylesheet' href='stylesheets/normalize.css'>
     <link rel='stylesheet' href='stylesheets/fonts.css'>
     <link rel='stylesheet' href='stylesheets/foundation.min.css'>
@@ -27,39 +29,54 @@
 
     <script type="text/template" class="template" id="post-template">
         <div class='large-6 large-centered columns'>
-          <div class = 'video'>
-            <video src="<%= videoUrl %>" loop controls></video>
-          </div>
-          <div class = 'metadata'>
-            <div class = 'author-profile-picture'>
-              <img src = "<%= user.avatarUrl %>" width="60px" />
+          <div class='row'>
+            <div class='large-12 columns'>
+              <video src="<%= videoUrl %>" loop controls></video>
             </div>
-            <div class = 'text-data'>
-              <div class = 'timestamp'>
-                <%= prettyDate(created) %>
-              </div>
+          </div>
+          <div class='row'>
+            <div class='small-2 columns'>
+              <img class='avatar' src = "<%= user.avatarUrl %>" />
+            </div>
+            <div class='small-8 columns'>
               <div class = 'author-name'>
                 <%= user.username %>
               </div>
               <div class = 'video-caption'>
                 <%= description %>
               </div>
-            </div>
-            <div class = 'action-buttons'>
-              <div class = 'button revine-button'>
+              <div class = 'expand button revine-button'>
                 ReVine
-              <% if (revines.length) { %>
-                  (<%= revines.length %> RVs)
-              <% } %>
-
+                <% if (revines.length) { %>
+                    (<%= revines.length %> RVs)
+                <% } %>
               </div>
-              <div class = "twitter-share">
-                <img src = "/images/twitter-icon-color.png" />
+            </div>
+            <div class='small-2 columns'>
+              <div class = 'timestamp'>
+                <%= timeSince(created) %>
               </div>
+              <img class='twitter-share' src="/images/twitter-icon-color.png" />
             </div>
           </div>
         </div>
     </script>
+
+    <div class = "footer">
+      ?
+    </div>
+    <div class = "about">
+      <h2>About ReViner</h2>
+      <p>
+        Made with love at HackNY 2013s by <a href = "http://twitter.com/dproi">Devon Peticolas</a>, <a href = "http://twitter.com/yefim323">Geoffrey Vedernikoff</a> and <a href = "http://twitter.com/temiri">Tess Rinearson</a>.
+      </p>
+      <p>
+        This is a hack on Vine's internal API. You might want to read our blog post about how we did this.
+      </p>
+    </div>
+
+    <div class = "shadow">
+    </div>
 
     <div class = "overlay">
       Vine successfully ReVined!
