@@ -90,6 +90,24 @@ class Vino
           return
         cb?(null, body)
     )
+  userSearch: (user, cb) ->
+    throw new Error('must be logged in') if not ('sessionId' of @)
+    request(
+      url: "#{@opts.baseUrl}users/search/#{encodeURIComponent(user)}"
+      method: 'get'
+      headers:
+        'vine-session-id': @sessionId
+        'User-Agent': @opts.userAgent
+      , (err, resp, body) =>
+        if err
+          cb?(err, resp)
+          return
+        body = JSON.parse body
+        if body.code
+          cb?('tagSearch failure', body)
+          return
+        cb?(null, body.data)
+    )
   tagSearch: (tag, cb) ->
     throw new Error('must be logged in') if not ('sessionId' of @)
     request(
