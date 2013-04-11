@@ -8,7 +8,7 @@ class Reviner.Views.RevineView extends Backbone.View
     @$el.toggleClass 'postToTwitter'
   revine: ->
     revine = @model.clone()
-    # change user to the current user
+    # TODO: change user to the current user
     # create send a POST request to the collection's url (i.e., /revines)
     # with the payload of the entire newly-created model
     @model.collection.create revine
