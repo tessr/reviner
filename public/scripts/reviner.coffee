@@ -27,6 +27,12 @@ $ ->
   post_template = $('#post-template').html()
   revines = new Reviner.Collections.Revines(Data.records)
 
+  revines.on 'add', (revine) ->
+    # revine_view = new Reviner.Views.RevineView(model: revine, template: post_template)
+    # $('#container').prepend revine_view.render().el
+    $('.overlay').show 'slow' , ->
+      $('.overlay').delay(1500).hide('slow')
+
   views = []
   revines.each (revine) ->
     revine_view = new Reviner.Views.RevineView(model: revine, template: post_template)

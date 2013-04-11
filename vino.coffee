@@ -93,7 +93,7 @@ class Vino
         if not body.success
           cb?('revine failure', body)
           return
-        cb?(null, body)
+        cb?(null, body.data)
     )
   userSearch: (user, cb) ->
     throw new Error('must be logged in') if not ('sessionId' of @)

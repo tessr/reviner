@@ -7,17 +7,9 @@ class Reviner.Views.RevineView extends Backbone.View
     @model.toggleShare()
     @$el.toggleClass 'postToTwitter'
   revine: ->
-    $.ajax(
-      method: 'POST'
-      url: '/revines'
-      data: @model.toJSON()
-    ).done (data) =>
-      # should refactor into a subview
-      if @model.get("revines").length
-        count = @model.get("revines").length
-        @$el.find('.revine-button').html("ReVine (#{count+1} RVs)")
-      $('.overlay').show 'slow' , ->
-        $('.overlay').delay(1500).hide('slow')
+    revine = @model.clone()
+    # change user
+    @model.collection.create revine
 
   initialize: (options) ->
     @template = options.template
