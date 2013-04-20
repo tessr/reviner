@@ -103,7 +103,7 @@ app.post '/revines', (req, res) ->
     res.status(error: err, 500) if err?
     if doc?
       doc.revines.push(new Revine(userId: post.userId))
-      post.timesRevined++
+      doc.timesRevined++
     else
       post.revines = [new Revine(userId: post.userId)]
       doc = new Post(post)
