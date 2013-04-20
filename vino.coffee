@@ -109,7 +109,7 @@ class Vino
           return
         body = JSON.parse body
         if body.code
-          cb?('tagSearch failure', body)
+          cb?('userSearch failure', body)
           return
         cb?(null, body.data)
     )
