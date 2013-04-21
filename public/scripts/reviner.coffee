@@ -25,6 +25,7 @@ window.timeSince = (ts) ->
 
 $ ->
   post_template = $('#post-template').html()
+  metadata_template = $('#metadata-template').html()
   revines = new Reviner.Collections.Revines(Data.records)
 
   revines.on 'add', (revine) ->
@@ -35,7 +36,11 @@ $ ->
 
   views = []
   revines.each (revine) ->
-    revine_view = new Reviner.Views.RevineView(model: revine, template: post_template)
+    revine_view = new Reviner.Views.RevineView(
+      model: revine
+      template: post_template
+      metadata_template: metadata_template
+    )
     views.push revine_view.render()
   viewEls = _.pluck views, 'el'
   $('#container').html viewEls

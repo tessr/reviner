@@ -5,6 +5,13 @@ app = express()
 mongoose = require('mongoose')
 troop = require('mongoose-troop')
 
+# helpers
+invert = (obj) ->
+  new_obj = {}
+  for prop of obj
+    new_obj[obj[prop]] = prop  if obj.hasOwnProperty(prop)
+  new_obj
+
 # set up ejs to play nice with underscore
 ejs = require('ejs')
 ejs.open = '{{'
@@ -52,7 +59,15 @@ app.get '/', (req, res) ->
     client.homeFeed (err, feed) ->
       res.send(error: err, 500) if err?
       # all succeeded, return user object with the homefeed
-      res.render('index', {feed: feed})
+      videoUrls = feed.records.map (p) -> p.videoUrl
+      videoUrlToIndex = invert videoUrls
+      Post.find {videoUrl: {$in: videoUrls}}, (err, posts) ->
+        res.send(error: err, 500) if err?
+        posts.forEach (post) ->
+          p = feed.records[videoUrlToIndex[post.videoUrl]]
+          p.timesRevined = post.timesRevined
+          p.revines = post.revines
+        res.render('index', {feed: feed})
   else
     res.redirect('/login.html')
 
@@ -99,7 +114,8 @@ app.post '/revines', (req, res) ->
     description: "RV: #{post.description}"
     postToTwitter: post.postToTwitter
 
-  Post.findOne {videoUrl: post.videoUrl}, (err, doc) ->
+  # remove versionId when looking for revines
+  Post.findOne {videoUrl: post.videoUrl.replace(/\?.*/, "")}, (err, doc) ->
     res.status(error: err, 500) if err?
     if doc?
       doc.revines.push(new Revine(userId: post.userId))

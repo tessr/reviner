@@ -7,15 +7,23 @@ class Reviner.Views.RevineView extends Backbone.View
     @model.toggleShare()
     @$el.toggleClass 'postToTwitter'
   revine: ->
-    revine = @model.clone()
-    # TODO: change user to the current user
-    # create send a POST request to the collection's url (i.e., /revines)
-    # with the payload of the entire newly-created model
-    @model.collection.create revine
+    @model.revine()
 
   initialize: (options) ->
     @template = options.template
+    @metadata_template = options.metadata_template
+    @listenTo @model, 'change', @render_metadata
+
+  render_video: ->
+    @$el.find('.video').html(
+      "<video src='#{@model.get("videoUrl")}' loop controls></video>"
+    )
+  render_metadata: ->
+    compiled = _.template @metadata_template, @model.toJSON()
+    @$el.find('.metadata').html compiled
+
   render: ->
-    compiled = _.template @template, @model.toJSON()
-    @$el.html compiled
+    @$el.html @template
+    @render_video()
+    @render_metadata()
     return @
