@@ -6,8 +6,7 @@ root.Reviner =
   Views: {}
 
 # http://stackoverflow.com/questions/3177836/how-to-format-time-since-xxx-e-g-4-minutes-ago-similar-to-stack-exchange-site
-window.timeSince = (ts) ->
-  now = new Date()
+window.timeSince = (ts, now) ->
   ts = new Date(ts)
   delta = now.getTime() - ts.getTime()
   delta = delta / 1000 #us to s
@@ -26,7 +25,7 @@ window.timeSince = (ts) ->
 $ ->
   post_template = $('#post-template').html()
   metadata_template = $('#metadata-template').html()
-  revines = new Reviner.Collections.Revines(Data.records)
+  root.revines = new Reviner.Collections.Revines(Data.records)
 
   revines.on 'add', (revine) ->
     # revine_view = new Reviner.Views.RevineView(model: revine, template: post_template)

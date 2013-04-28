@@ -5,6 +5,7 @@ class Reviner.Models.Revine extends Backbone.Model
       revines: []
       created: new Date()
       timesRevined: 0
+      now: new Date()
     }
   toggleShare: ->
     postToTwitter = if @get("postToTwitter") == 0 then 1 else 0
