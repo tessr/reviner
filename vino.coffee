@@ -79,15 +79,30 @@ class Vino
         @userId = body.data.userId
         cb?(null, @sessionId, @userId)
     )
+  follow: (userId, cb) ->
+    throw new Error('must be logged in') if not ('sessionId' of @)
+    request(
+      url: "#{@opts.baseurl}users/#{userId}/followers"
+      method: 'post'
+      headers:
+        'vine-session-id': @sessionId
+        'user-agent': @opts.userAgent
+      , (err, resp, body) =>
+        body = JSON.parse body
+        if not body.success
+          cb?('follow failure', body)
+          return
+        cb?(null, body.data)
+    )
   revine: (params, cb) ->
     throw new Error('must be logged in') if not ('sessionId' of @)
     request(
-      url: @opts.baseUrl + 'posts'
+      url: @opts.baseurl + 'posts'
       method: 'post'
       form: params
       headers:
         'vine-session-id': @sessionId
-        'User-Agent': @opts.userAgent
+        'user-agent': @opts.userAgent
       , (err, resp, body) =>
         body = JSON.parse body
         if not body.success
