@@ -82,7 +82,7 @@ class Vino
   follow: (userId, cb) ->
     throw new Error('must be logged in') if not ('sessionId' of @)
     request(
-      url: "#{@opts.baseurl}users/#{userId}/followers"
+      url: "#{@opts.baseUrl}users/#{userId}/followers"
       method: 'post'
       headers:
         'vine-session-id': @sessionId
@@ -97,7 +97,7 @@ class Vino
   revine: (params, cb) ->
     throw new Error('must be logged in') if not ('sessionId' of @)
     request(
-      url: @opts.baseurl + 'posts'
+      url: "#{@opts.baseUrl}posts"
       method: 'post'
       form: params
       headers:
